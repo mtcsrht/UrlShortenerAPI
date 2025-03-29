@@ -1,7 +1,10 @@
-const express = require('express');
-const bodyParser = require('bodyParser');
-const cors = require('cors');
-require('dotenv').config();
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import urlRouter from './src/routes/url.js';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,16 +14,14 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
 //Routes
-app.route("v1")
+app.use('/url', urlRouter);
+
 app.get('/', (req, res) => {
-    res.send("API is alive!")
+    res.send("API is alive");
 });
 
-
 // Server
-
-app.listen(PORT, () =>{
-    console.log(`Server running on port ${PORT}`)
-})
+app.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}`);
+});
